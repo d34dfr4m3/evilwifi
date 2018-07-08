@@ -15,19 +15,19 @@ function basic(){
 	esac
 }
 function check_install(){
-	echo "[-] Checking if Nginx is OK"	
+	echo "[-] Checking Nginx "	
 	if [ -f /etc/init.d/nginx ];then
 		echo "	[*] Nginx OK"
 	else
 		echo "	[!] Nginx is missing"
 	fi
-	echo "[-] Checking if Dnsmasq is OK"	
+	echo "[-] Checking Dnsmasq "	
 	if [ -f /etc/init.d/dnsmasq ];then
 		echo "	[*] dnsmasq OK"
 	else
 		echo "	[!] dnsmasq is missing"
 	fi
-	echo "[-] Checking if hostapd is OK"	
+	echo "[-] Checking hostapd"	
 	if [ -f /etc/init.d/hostapd ];then
 		echo "	[*] hostapd OK"
 	else
@@ -43,3 +43,5 @@ case $OSBASED in
 		;;
 esac 
 check_install
+
+echo "[+] Good to go, now run ./setup.sh"
