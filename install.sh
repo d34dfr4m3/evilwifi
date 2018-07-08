@@ -10,7 +10,7 @@ function basic(){
 	case $1 in
 		debian)
 			echo "[+] Installing software using apt"
-			apt update && apt install nginx isc-dhcp-server mdk3 bind9 hostapd -y
+			apt update && apt install nginx dnsmasq mdk3 hostapd -y
 		;;
 	esac
 }
@@ -21,17 +21,11 @@ function check_install(){
 	else
 		echo "	[!] Nginx is missing"
 	fi
-	echo "[-] Checking if DHCP is OK"	
-	if [ -f /etc/init.d/isc-dhcp-server ];then
-		echo "	[*] isc-dhcp-server OK"
+	echo "[-] Checking if Dnsmasq is OK"	
+	if [ -f /etc/init.d/dnsmasq ];then
+		echo "	[*] dnsmasq OK"
 	else
-		echo "	[!] isc-dhcp-server is missing"
-	fi
-	echo "[-] Checking if BIND9 is OK"	
-	if [ -f /etc/init.d/bind9 ];then
-		echo "	[*] bind9 OK"
-	else
-		echo "	[!] Bind9 is missing"
+		echo "	[!] dnsmasq is missing"
 	fi
 	echo "[-] Checking if hostapd is OK"	
 	if [ -f /etc/init.d/hostapd ];then

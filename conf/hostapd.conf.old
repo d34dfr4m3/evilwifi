@@ -1,0 +1,23 @@
+interface=wlan1
+driver=rt2800usb
+country_code=BO
+ssid=WifiGratis
+hw_mode=g
+channel=6
+wpa=2
+wpa_passphrase=MyWiFiPassword
+
+## Key management algorithms ##
+wpa_key_mgmt=WPA-PSK
+ 
+## Set cipher suites (encryption algorithms) ##
+## TKIP = Temporal Key Integrity Protocol
+## CCMP = AES in Counter mode with CBC-MAC
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+ 
+## Shared Key Authentication ##
+auth_algs=1
+ 
+## Accept all MAC address ###
+macaddr_acl=0
