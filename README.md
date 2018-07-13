@@ -25,3 +25,7 @@ Com todo o setup realizado, a ideia é que raspberry, bateria e antena fiquem na
 ```
 tail -f /var/log/syslog | grep -i dnsmasq
 ``` 
+
+###### Fontes:
+- https://www.reddit.com/r/darknetplan/comments/ou7jj/quick_and_dirty_captive_portal_with_dnsmasq/
+- http://www.instructables.com/id/How-to-make-a-WiFi-Access-Point-out-of-a-Raspberry/
