@@ -18,6 +18,7 @@ Com todo o setup realizado, a ideia é que raspberry, bateria e antena fiquem na
 - DNS Poisoning -> OK (dnsmasq)
 - Security and Redirect -> OK (Iptables)
 - WebServer -> OK (nginx)
+- Captive Portal stuff
 - MITM HSTS -> 
 - JS Injection -> 
 - Console de status de conexões estabelecidades(DHCP), requisições DNS e dump de credenciais.
@@ -25,6 +26,9 @@ Com todo o setup realizado, a ideia é que raspberry, bateria e antena fiquem na
 ```
 tail -f /var/log/syslog | grep -i dnsmasq
 ``` 
+#### Captive Portal
+- https://tools.ietf.org/html/rfc7710
+- https://en.wikipedia.org/wiki/Captive_portal
 
 ###### Fontes:
 - https://www.reddit.com/r/darknetplan/comments/ou7jj/quick_and_dirty_captive_portal_with_dnsmasq/
