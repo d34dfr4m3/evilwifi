@@ -40,7 +40,7 @@ function security(){
 	iptables -I FORWARD -i wlan1 -o wlan0 -j DROP
 	iptables -I FORWARD -i eth0 -o wlan0 -j DROP
 	iptables -I FORWARD -i wlan0 -o eth0 -j DROP
-	iptables -t nat -I PREROUTING -i wlan0 -p tcp --dport 443 -j REDIRECT --to 80
+	iptables -t nat -I PREROUTING -p tcp --dport 80 -j DNAT --to 192.168.8.1
 	echo "	[*] Firewall Rules UP"
 }
 
@@ -62,11 +62,14 @@ function webserver(){
 		ln -s $(pwd)/$i /etc/nginx/sites-enabled/$FILENAME
 		if [ ! -d /var/www/nginx/$NAMEDIR ];then
 			mkdir /var/www/nginx/$NAMEDIR
-			cp conf/vhosts/$NAMEDIR/index.php /var/www/nginx/$NAMEDIR/
+			cp conf/vhosts/$NAMEDIR/index.* conf/vhosts/$NAMEDIR/*.php /var/www/nginx/$NAMEDIR/
 		else
 			echo "[!] Vhosts Directory already exists"
 		fi
 	done
+	chown -R www-data.www-data /var/www/nginx
+	echo "[+] starting php-fpm"
+	/etc/init.d/php7.2-fpm start
 	echo "[+] Starting Nginx"
 	systemctl start nginx
 }

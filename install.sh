@@ -10,7 +10,7 @@ function basic(){
 	case $1 in
 		debian)
 			echo "[+] Installing software using apt"
-			apt update && apt install nginx dnsmasq mdk3 hostapd -y
+			apt update && apt install nginx dnsmasq mdk3 hostapd php php-fpm -y
 		;;
 	esac
 }
@@ -32,6 +32,17 @@ function check_install(){
 		echo "	[*] hostapd OK"
 	else
 		echo "	[!] hostapd is missing"
+	fi
+	if [ -f /usr/sbin/mdk3 ];then
+		echo "	[*] mdk3 OK"
+	else
+		echo "	[!] mdk3 is missing"
+	fi
+	if [ -f /usr/bin/php ];then
+		echo "	[*] PHP OK, VERSION: $(php -v | head -n1 | cut -d '(' -f1)"
+
+	else
+		echo "	[!] php is missing"
 	fi
 }
 check_sys
