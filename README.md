@@ -31,6 +31,7 @@ tail -f /var/log/syslog | grep -i dnsmasq
 - https://en.wikipedia.org/wiki/Captive_portal
 - https://andrewwippler.com/2016/03/11/wifi-captive-portal/
 - https://www.reddit.com/r/darknetplan/comments/ou7jj/quick_and_dirty_captive_portal_with_dnsmasq/
+- https://www.chromium.org/chromium-os/chromiumos-design-docs/network-portal-detection
 
 #### SSH over Bluetooth 
 - https://www.reddit.com/r/raspberry_pi/comments/25c1ok/how_to_ssh_over_bluetooth_to_an_rpi/

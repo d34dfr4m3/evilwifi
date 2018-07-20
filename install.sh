@@ -1,58 +1,70 @@
 #!/bin/bash
-# echo 	+ Means Action
-# 	- Means checks
-# 	! Means Errors
-# 	* Status Update
+send="message.sh"
 function check_sys(){
 	OSBASED=$(grep ID_LIKE /etc/*release | cut -d '=' -f 2)
 }
 function basic(){
 	case $1 in
 		debian)
-			echo "[+] Installing software using apt"
-			apt update && apt install nginx dnsmasq mdk3 hostapd php php-fpm -y
+			. message.sh status "Installing software using apt"
+			apt update && apt install nginx dnsmasq mdk3 hostapd php php-fpm git ruby2.5* -y
+			. message.sh status "Downloading beef using apt"
+			git clone https://github.com/beefproject/beef.git /opt/beef
 		;;
 	esac
 }
 function check_install(){
-	echo "[-] Checking Nginx "	
+	. message.sh check "Checking Nginx"
 	if [ -f /etc/init.d/nginx ];then
-		echo "	[*] Nginx OK"
+		. message.sh status "Nginx OK"
 	else
-		echo "	[!] Nginx is missing"
+		. message.sh error "Nginx is missing"
 	fi
-	echo "[-] Checking Dnsmasq "	
+	. message.sh check "Checking Dnsmasq"
 	if [ -f /etc/init.d/dnsmasq ];then
-		echo "	[*] dnsmasq OK"
+		. message.sh status "Dnsmasq OK"
 	else
-		echo "	[!] dnsmasq is missing"
+		. message.sh error "Dnsmasq is missing"
 	fi
-	echo "[-] Checking hostapd"	
+	. message.sh check "Checking hosaptd"
 	if [ -f /etc/init.d/hostapd ];then
-		echo "	[*] hostapd OK"
+		. message.sh status "hosapd OK"
 	else
-		echo "	[!] hostapd is missing"
+		. message.sh error "Dnsmasq is missing"
 	fi
+	. message.sh check "Checking MDK3"
 	if [ -f /usr/sbin/mdk3 ];then
-		echo "	[*] mdk3 OK"
+		. message.sh status "MDK3 OK"
 	else
-		echo "	[!] mdk3 is missing"
+		. message.sh error "MDK3 is missing"
 	fi
+	. message.sh check "Checking PHP"
 	if [ -f /usr/bin/php ];then
-		echo "	[*] PHP OK, VERSION: $(php -v | head -n1 | cut -d '(' -f1)"
+		. message.sh status "PHP OK, VERSION: $(php -v | head -n1 | cut -d '(' -f1)"
 
 	else
-		echo "	[!] php is missing"
+		. message.sh error "PHP is missing"
 	fi
 }
-check_sys
-case $OSBASED in
-	debian|DEBIAN)
-		basic $OSBASED
-		;;
-	*) echo "[!] Sorry, your system isn't compatible yet, please report" 
-		;;
-esac 
-check_install
-
-echo "[+] Good to go, now run ./setup.sh"
+if [ $(id -u) -ne 0 ];then
+	. message error "God mode required, i'm leaving"
+	exit 1
+else
+	check_sys
+	if [ ! -f message.sh ];then
+		. message.sh error "Message file is missing, aborting now!"
+		exit 1
+	else
+	case $OSBASED in
+		debian|DEBIAN)
+			basic $OSBASED
+			;;
+		
+		*) 	. message.sh error "Sorry, your system isn't compatible yet, please report" 
+			exit 1
+			;;
+	esac 
+	check_install
+	. message.sh status "Good to go, now run ./setup.sh"
+fi
+fi
