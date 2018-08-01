@@ -38,3 +38,5 @@ tail -f /var/log/syslog | grep -i dnsmasq
 
 ###### Fontes:
 - http://www.instructables.com/id/How-to-make-a-WiFi-Access-Point-out-of-a-Raspberry/
+- https://blog.heckel.xyz/2013/07/18/how-to-dns-spoofing-with-a-simple-dns-server-using-dnsmasq/
+- https://en.wikipedia.org/wiki/DNS_spoofing

