@@ -8,7 +8,14 @@ Projeto visa ataques Wifi moveis, conhecidos como warwalking. Para esse objetivo
 
 Com todo o setup realizado, a ideia é que raspberry, bateria e antena fiquem na mochila. Enquanto o smarphone que estará conectado no raspberry será utilizado para controlar os ataques. 
 
+## How Install 
+##### Dependências: 
+- git
+```
 
+apt get install git 
+git clone https://github.com/d34dfr4m3/evilwifi.git
+```
 
 ### First 
 - Create a AP, use dns poisoning to redirect the requests to fake webpages to intercept credentials. 
