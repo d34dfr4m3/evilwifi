@@ -15,6 +15,15 @@ Com todo o setup realizado, a ideia é que raspberry, bateria e antena fiquem na
 
 apt get install git 
 git clone https://github.com/d34dfr4m3/evilwifi.git
+cd evilwifi
+./install.sh
+```
+
+## How to run: 
+
+```
+./setup 
+
 ```
 
 ### First 
